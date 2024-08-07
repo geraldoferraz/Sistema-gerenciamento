@@ -1,0 +1,53 @@
+
+-------------------------------------------------------------------------
+
+--> Instalando Tailwind
+
+npm install -D tailwindcss postcss autoprefixer              
+
+npx tailwindcss init -p
+
+npm i
+
+-------------------------------------------------------------------------
+
+npm i -D @types/node                                         
+
+-------------------------------------------------------------------------
+
+npm i -D prettier-plugin-tailwindcss  --> para utilizaçãocdo prettier. 
+
+--------------------------------------------------------------------------
+
+npm i react-helmet-async --> para utilização do helmet
+
+---------------------------------------------------------------
+
+npm install react-router-dom localforage match-sorter sort-by
+
+configuramos as Pages
+
+configuramos e criamos o arquivo routes.tsx
+
+chamamos esse arquivo dentro de App.tsx
+
+-------------------------------------------------
+
+validacoes : 
+
+ npm i react-hook-form zod @hookform/resolvers
+
+
+ -----------------------------------------------------------------------------------
+
+npm i sonner --> toast 
+
+como usar : 
+
+import { Toaster } from "sonner" --> faz essa importacao no App.tsx 
+
+<Toaster /> --> chama esse componente no meio da aplicacao. --> no App.tsx
+
+usa o metodo toast aonde quiser mostrar a msg como ex: tast.success('message aqui')
+
+------------------------------------------------------------------------------------
