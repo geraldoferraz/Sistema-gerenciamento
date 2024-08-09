@@ -51,3 +51,7 @@ import { Toaster } from "sonner" --> faz essa importacao no App.tsx
 usa o metodo toast aonde quiser mostrar a msg como ex: tast.success('message aqui')
 
 ------------------------------------------------------------------------------------
+
+react query: 
+
+npm i @tanstack/react-query

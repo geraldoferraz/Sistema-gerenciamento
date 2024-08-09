@@ -5,6 +5,8 @@ import { Toaster } from "sonner"
 
 import "./global.css"
 import { ThemeProvider } from "./components/theme/theme-provider"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { queryClient } from "./lib/react-query"
 
 export function App() {
 
@@ -13,7 +15,9 @@ export function App() {
       <ThemeProvider storageKey="pizzashop-theme" defaultTheme="dark"> {/* themeProvider é do próprio shadcnUI */}
         <Helmet titleTemplate="%s | pizza.shop" /> 
         <Toaster richColors closeButton/>
-        <RouterProvider router={router}/>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router}/>
+        </QueryClientProvider>
       </ThemeProvider>
     </HelmetProvider>
   )

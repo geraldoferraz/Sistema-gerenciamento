@@ -11,6 +11,8 @@ import { z } from "zod"
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { useMutation } from "@tanstack/react-query";
+import { signUp } from "@/api/sign-up";
 
 
 const signUpForm = z.object({
@@ -29,15 +31,26 @@ export function SignUp(){
     const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { isSubmitting } } = useForm<SignUpForm>()
 
+    const { mutateAsync: registerRestaurant } = useMutation({
+        mutationFn: signUp
+    })
+
     async function handleSignUp(data: SignUpForm){
         try{
             setIsLoading(true)
             console.log(data)
-            await new Promise((resolve) => setTimeout(resolve, 2500))
+
+            await registerRestaurant({ 
+                restaurantName: data.restaurantName,
+                managerName: data.managerName,
+                email: data.email,
+                phone: data.phone,
+            })
+
             toast.success('Restaurante cadastrado com sucesso!', {
                 action: {
                     label: 'Faça agora seu login',
-                    onClick: () => navigate('/sign-in')
+                    onClick: () => navigate(`/sign-in?email=${data.email}`) //passamos o email do user na url de sign-in
                 }
             })
 

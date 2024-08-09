@@ -8,9 +8,11 @@ import { Helmet } from "react-helmet-async"
 import { useState } from "react";
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "@/api/sign-in";
 
 
 const signInForm = z.object({
@@ -22,15 +24,26 @@ type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn(){
 
+    const [searchParams] = useSearchParams() //pegando os params da url
+
     const [isLoading, setIsLoading] = useState(false)
 
-    const { register, handleSubmit, formState: { isSubmitting } } = useForm<SignInForm>()
+    const { register, handleSubmit, formState: { isSubmitting } } = useForm<SignInForm>({
+        defaultValues: {
+            email: searchParams.get('email') ?? '',
+        }
+    })
+
+    const { mutateAsync: authenticate } = useMutation({ //todo post,put e delete sao mutacoes, sempre que vamos fazer essas requisicoes, chamamos a funcao que faz a requisicao dentro do useMutation()
+        mutationFn: signIn,
+    })
 
     async function handleSignIn(data: SignInForm){
         try{
             setIsLoading(true)
-            console.log(data)
-            await new Promise((resolve) => setTimeout(resolve, 2500))
+            console.log(data.email)
+            await authenticate({ email: data.email })
+
             toast.success('Enviamos um link de authenticação para seu email.', {
                 action: {
                     label: "Reenviar link",
